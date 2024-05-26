@@ -1,10 +1,20 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseNotFound
 
-def saturday(request):
-    return HttpResponse('this is saturday')
+days = {
+    'saturday' : 'this is saturday in disctionary',
+    'sunday'   : 'this is sunday in disctionary',
+    'monday'   : 'this is monday in disctionary',
+    'tuesday'  : 'this is tuesday in disctionary',
+    'wednesday': 'this is wednesday in disctionary',
+    'friday'   : 'this is friday in disctionary',
+}
 
-def sunday(request):
-    return HttpResponse('this is sunday')
 
+def dynamic_days(request, day):
+    day_data = days.get(day)
+    if day_data is not None:
+        return HttpResponse(f'day is : {day} and data is {day_data}')
+
+    return HttpResponseNotFound('day does not exists')
 
